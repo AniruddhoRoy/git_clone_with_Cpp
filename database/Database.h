@@ -70,6 +70,7 @@ public:
     {
         fstream file(final_path_with_name, ios::out);
         file << input_file.File_Address << endl;
+        file << input_file.File_name << endl;
         for (int i = 0; i < input_file.file_data.size(); i++)
         {
             file << input_file.file_data[i] << endl;
@@ -81,6 +82,7 @@ public:
         Files output_file;
         fstream file(final_path_with_name, ios::in);
         getline(file, output_file.File_Address);
+        getline(file, output_file.File_name);
         string temp;
         while (getline(file, temp))
         {

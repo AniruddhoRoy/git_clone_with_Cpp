@@ -7,6 +7,7 @@ using namespace std::filesystem;
 class Repo
 {
     vector<string> filenames;
+    vector<string> dirnames;
     vector<string> IgnoreFiles;
     vector<string> IgnoreDirs;
 
@@ -41,6 +42,11 @@ public:
     {
         directories(path);
         return filenames;
+    }
+    vector<string> current_directories(string path = "")
+    {
+        directories(path);
+        return dirnames;
     }
 
 private:
@@ -123,10 +129,11 @@ private:
                     {
                         if (!is_ignore_file(entry.path().filename().string()))
                         {
-                            // filenames.push_back(entry.path().string());
+
                             filenames.push_back(relative(entry.path()).string());
+                            dirnames.push_back(relative(entry.path().parent_path()).string());
+                            // cout << "[FILE] " << entry.path().string() << '\n';
                         }
-                        // cout << "[FILE] " << entry.path().string() << '\n';
                         // cout << "[FILE] " << entry.path().filename() << '\n';
                     }
                 }

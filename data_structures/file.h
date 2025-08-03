@@ -7,5 +7,6 @@ class Files
 {
 public:
     string File_Address;
+    string File_name;
     vector<string> file_data;
 };

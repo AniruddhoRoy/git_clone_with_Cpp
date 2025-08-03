@@ -58,6 +58,7 @@ public:
     void take_snap(string commit_name)
     {
         vector<string> files = repo.files_in_current_directory();
+        vector<string> dirs = repo.current_directories();
         Database commit_list(constants::branch_commit_lits, join({constants::storage_directory, this->active_branch}));
         if (find(this->commit_list, commit_name))
         {
@@ -73,8 +74,9 @@ public:
             Database input_file(files[i]);
             Database output_file(randomString(), join({constants::storage_directory, active_branch, commit_name}), true);
             Files file;
-            file.File_Address = files[i];
+            file.File_Address = dirs[i];
             file.file_data = input_file.get_data();
+            file.File_name = files[i];
             output_file.putdata_complex(file);
         }
     }
@@ -92,7 +94,7 @@ public:
             Database input_file(files[i], "", true);
             Files file = input_file.getdata_complex();
             repo.create_dir(join({alternative_address, file.File_Address}));
-            Database output_file(join({alternative_address, file.File_Address}));
+            Database output_file(join({alternative_address, file.File_name}));
             output_file.putdata(file.file_data);
         }
     }
