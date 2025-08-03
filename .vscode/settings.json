@@ -1,0 +1,10 @@
+{
+    "code-runner.executorMap": {
+    "cpp": "\"R:\\\\GCC\\\\mingw64\\\\bin\\\\g++.exe\" -std=c++17 -static-libstdc++ $fullFileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
+  },
+  "files.associations": {
+    "iosfwd": "cpp",
+    "fstream": "cpp",
+    "iostream": "cpp"
+  }
+}
