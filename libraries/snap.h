@@ -10,6 +10,7 @@ class Snap
 private:
     Repo repo;
     string active_branch;
+    vector<string> commit_list;
     bool branch_exist(vector<string> data, string s)
     {
         for (int i = 0; i < data.size(); i++)
@@ -51,10 +52,15 @@ public:
             branchs.putdata(data);
         }
         repo.create_dir(constants::storage_directory + "/" + this->active_branch);
+        Database commit_list(constants::branch_commit_lits, join({constants::storage_directory, this->active_branch}));
+        this->commit_list = commit_list.get_data();
     }
     void take_snap(string commit_name)
     {
         vector<string> files = repo.files_in_current_directory();
+        Database commit_list(constants::branch_commit_lits, join({constants::storage_directory, this->active_branch}));
+        this->commit_list.push_back(commit_name);
+        commit_list.putdata(this->commit_list);
         repo.create_dir(join({constants::storage_directory, active_branch, commit_name}));
         for (int i = 0; i < files.size(); i++)
         {

@@ -10,13 +10,14 @@ namespace constants
     const string tig_init = "init";
     const string tig_commit_message = "commit";
     const string tig_log = "log";
-    const vector<string> default_ignore = {
-        "/.git", "main.cpp"};
+
     const string storage_directory = ".tig";
     const string branches = "branchs.txt";
     const string active_branch_name = "active_branch.txt";
     const string default_branch_name = "origin";
-
+    const string branch_commit_lits = "branch_commit_lits.txt";
+    const vector<string> default_ignore = {
+        "/.git", "main.cpp", branches, IgnoreFile, active_branch_name, "/" + storage_directory};
 }
 
 string join(vector<string> strings)
