@@ -2,6 +2,7 @@
 #include "Repository.h"
 #include "../constants/constant.h"
 #include "../database/Database.h"
+#include "../data_structures/file.h"
 using namespace std;
 
 class Snap
@@ -57,8 +58,12 @@ public:
         repo.create_dir(join({constants::storage_directory, active_branch, commit_name}));
         for (int i = 0; i < files.size(); i++)
         {
-            Database db(files[i], "", true);
-            db.getdata_complex();
+            Database input_file(files[i]);
+            Database output_file(randomString(), join({constants::storage_directory, active_branch, commit_name}), true);
+            Files file;
+            file.File_Address = files[i];
+            file.file_data = input_file.get_data();
+            output_file.putdata_complex(file);
         }
     }
 };
