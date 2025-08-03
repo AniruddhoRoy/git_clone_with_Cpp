@@ -37,20 +37,11 @@ public:
         {
         }
     }
-    vector<string> files_in_current_directory()
+    vector<string> files_in_current_directory(string path = "")
     {
-        directories();
+        directories(path);
         return filenames;
     }
-    // void delete_method()
-    // {
-    //
-    //     cout << "======Dirs=====" << endl;
-    //     for (int i = 0; i < IgnoreDirs.size(); i++)
-    //     {
-    //         cout << IgnoreDirs[i] << endl;
-    //     }
-    // }
 
 private:
     bool is_Ignore_File_exist()
@@ -106,9 +97,9 @@ private:
         }
         return false;
     }
-    void directories()
+    void directories(string s = "")
     {
-        path root = current_path();
+        path root = current_path() / s;
         queue<string> dirs;
         dirs.push(root.string());
         try

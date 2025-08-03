@@ -17,7 +17,7 @@ namespace constants
     const string default_branch_name = "origin";
     const string branch_commit_lits = "branch_commit_lits.txt";
     const vector<string> default_ignore = {
-        "/.git", "main.cpp", branches, IgnoreFile, active_branch_name, "/" + storage_directory};
+        "/.git", "main.cpp", branches, IgnoreFile, active_branch_name, "/" + storage_directory, branch_commit_lits};
 }
 
 string join(vector<string> strings)

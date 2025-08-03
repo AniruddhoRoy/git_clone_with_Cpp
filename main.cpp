@@ -11,6 +11,7 @@ int main()
     //     cout << x << endl;
     // }
     Snap s;
-    s.take_snap("radha_krishna");
+    // s.take_snap("test3");
+    s.put_snap("test3");
     return 0;
 }

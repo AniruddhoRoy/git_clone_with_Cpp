@@ -11,7 +11,7 @@ private:
     Repo repo;
     string active_branch;
     vector<string> commit_list;
-    bool branch_exist(vector<string> data, string s)
+    bool find(vector<string> data, string s)
     {
         for (int i = 0; i < data.size(); i++)
         {
@@ -45,7 +45,7 @@ public:
         {
             this->active_branch = active_branch.get_data().front();
         }
-        if (!branch_exist(branchs.get_data(), this->active_branch))
+        if (!find(branchs.get_data(), this->active_branch))
         {
             vector<string> data = branchs.get_data();
             data.push_back(this->active_branch);
@@ -59,6 +59,12 @@ public:
     {
         vector<string> files = repo.files_in_current_directory();
         Database commit_list(constants::branch_commit_lits, join({constants::storage_directory, this->active_branch}));
+        if (find(this->commit_list, commit_name))
+        {
+            cout << "Commit already exist" << endl;
+            return;
+        }
+
         this->commit_list.push_back(commit_name);
         commit_list.putdata(this->commit_list);
         repo.create_dir(join({constants::storage_directory, active_branch, commit_name}));
@@ -72,7 +78,22 @@ public:
             output_file.putdata_complex(file);
         }
     }
-    void put_snap(string commit_name)
+    void put_snap(string commit_name, string alternative_address = "")
     {
+        if (!find(commit_list, commit_name))
+        {
+            cout << "Commit not exist!" << endl;
+            return;
         }
+
+        vector<string> files = repo.files_in_current_directory(join({constants::storage_directory, active_branch, commit_name}));
+        for (int i = 0; i < files.size(); i++)
+        {
+            Database input_file(files[i], "", true);
+            Files file = input_file.getdata_complex();
+            repo.create_dir(join({alternative_address, file.File_Address}));
+            Database output_file(join({alternative_address, file.File_Address}));
+            output_file.putdata(file.file_data);
+        }
+    }
 };
