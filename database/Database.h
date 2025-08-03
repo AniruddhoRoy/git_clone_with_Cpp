@@ -3,6 +3,7 @@
 #include <bits/stdc++.h>
 #include "../libraries/Repository.h"
 #include "../hash/Hash.h"
+#include "../data_structures/file.h"
 using namespace std;
 class Database
 {
@@ -33,7 +34,7 @@ private:
     }
 
 public:
-    Database(string file_name, string file_path = "") : file_name(file_name), file_path(file_path)
+    Database(string file_name, string file_path = "", bool complex_data = false) : file_name(file_name), file_path(file_path)
     {
         if (!(file_path == ""))
         {
@@ -44,7 +45,10 @@ public:
         {
             final_path_with_name = file_name;
         }
-        read();
+        if (!complex_data)
+        {
+            read();
+        }
     }
     vector<string> get_data()
     {
@@ -61,5 +65,27 @@ public:
             file << hash.convert_to_hash(input_data[i]) << endl;
         }
         file.close();
+    }
+    void putdata_complex(Files &input_file)
+    {
+        fstream file(final_path_with_name, ios::out);
+        file << input_file.File_Address << endl;
+        for (int i = 0; i < input_file.file_data.size(); i++)
+        {
+            file << input_file.file_data[i] << endl;
+        }
+        file.close();
+    }
+    Files getdata_complex()
+    {
+        Files output_file;
+        fstream file(final_path_with_name, ios::in);
+        getline(file, output_file.File_Address);
+        string temp;
+        while (getline(file, temp))
+        {
+            output_file.file_data.push_back(temp);
+        }
+        return output_file;
     }
 };

@@ -11,6 +11,26 @@ class Repo
     vector<string> IgnoreDirs;
 
 public:
+    Repo()
+    {
+        for (int i = 0; i < constants::default_ignore.size(); i++)
+        {
+            string temp = constants::default_ignore[i];
+            if (temp.size() > 0 && temp[0] == '/')
+            {
+                string temp2(temp.begin() + 1, temp.end());
+                IgnoreDirs.push_back(temp2);
+            }
+            else
+            {
+                IgnoreFiles.push_back(temp);
+            }
+        }
+        if (is_Ignore_File_exist())
+        {
+            read_ignore_files_and_dirs();
+        }
+    }
     void create_dir(string path)
     {
         if (!create_directories(path))
@@ -91,10 +111,6 @@ private:
         path root = current_path();
         queue<string> dirs;
         dirs.push(root.string());
-        if (is_Ignore_File_exist())
-        {
-            read_ignore_files_and_dirs();
-        }
         try
         {
             while (!dirs.empty())

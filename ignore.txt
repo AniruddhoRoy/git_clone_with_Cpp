@@ -1,3 +1,1 @@
-main.cpp
-/.vscode
-/I_love_you_madhob_and_radha_rani
+snap.h
