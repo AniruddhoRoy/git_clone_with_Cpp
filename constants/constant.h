@@ -30,3 +30,17 @@ string join(vector<string> strings)
     result += strings.back();
     return result;
 }
+string randomString(int length = 11)
+{
+    const string characters = "abcdefghijklmnopqrstuvwxyz"
+                              "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                              "0123456789";
+
+    string result;
+    for (int i = 0; i < length; ++i)
+    {
+        result += characters[rand() % characters.size()];
+    }
+
+    return result;
+}
