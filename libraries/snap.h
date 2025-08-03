@@ -72,4 +72,7 @@ public:
             output_file.putdata_complex(file);
         }
     }
+    void put_snap(string commit_name)
+    {
+        }
 };

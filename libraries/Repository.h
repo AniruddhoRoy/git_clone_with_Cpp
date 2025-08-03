@@ -132,7 +132,8 @@ private:
                     {
                         if (!is_ignore_file(entry.path().filename().string()))
                         {
-                            filenames.push_back(entry.path().string());
+                            // filenames.push_back(entry.path().string());
+                            filenames.push_back(relative(entry.path()).string());
                         }
                         // cout << "[FILE] " << entry.path().string() << '\n';
                         // cout << "[FILE] " << entry.path().filename() << '\n';
